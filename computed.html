@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.red{ color: red; }
+		.blue{ color: blue; }
+		.green{ color: green; }
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h1> {{ titulo }} </h1>
+		<label for="">Escolha a cor</label><br>
+		<select v-model="cor" >
+			<option value="blue">Azul</option>
+			<option value="green">Verde</option>
+			<option value="red">Vermelho</option>
+		</select>
+		<p v-bind:class="changeColor">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium architecto reiciendis nostrum facilis, qui eius, illo voluptate quos, quia quidem ducimus, deleniti odit commodi odio praesentium provident ratione labore eligendi.</p>
+	</div>
+	
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data:{
+				titulo: "Vue do jeito ninja!",
+ 				cor:""
+			},
+			computed:{
+				changeColor() {
+					console.log('Color: ', this.cor);
+					return this.cor;
+				}
+			}
+
+		});
+	</script>
+</body>
+</html>

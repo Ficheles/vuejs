@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.red{ color: red; }
+		.blue{ color: blue; }
+		.green{ color: green; }
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h1> {{ titulo }} </h1>
+		<ul>
+			<li v-for="user in usuarios">{{ user.nome | truncate(5) }}</li>
+		</ul>
+	</div>
+	
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data:{
+				titulo: "Vue do jeito ninja!",
+ 				usuarios:[
+ 					{ nome: 'jon snow'},
+ 					{ nome: 'tyrion lannister'},
+ 					{ nome: 'daennerys'},
+ 				]
+			},
+			filters:{
+				toUpperCase(str){
+				 	return str.toUpperCase();
+				},
+
+				truncate(str, length){
+					var output = str;
+					if(output.length > length){
+						return output.substring(0, length) + ' ...';
+					}
+					return output;
+				}
+			}
+
+		});
+	</script>
+</body>
+</html>
