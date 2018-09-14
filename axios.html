@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+	<title>Ajax</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -12,6 +12,14 @@
 		<div class="container">
 			<h1> {{ title }} </h1>
 			<button v-on:click.stop.prevent="getUsers()" class="btn btn-success"> Get Users</button>
+			<div v-show="response.status == 'error'" class="alert alert-danger">{{ response.msg }}</div>
+			
+			<div v-show="loader.users" class="alert alert-default">Carregando usúarios</div>
+			<hr>
+
+			<ul>
+				<li v-for="user in users">{{ user.name }}</li>
+			</ul>
 		</div>
 	</div>
 	
@@ -19,19 +27,23 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
+	
 	<script src="http://unpkg.com/vue"></script>
+	<script src="http://unpkg.com/axios/dist/axios.min.js"></script>
 
 	<script>
 		var mixin = {
-			created() {
-				console.log('hello vue from mixin');
-			},
-
 			methods: {
 				getUsers() {
-					// rotina de progração
-					// localizar usúarios
-					console.log('get users from mixin');
+					this.loader.users = true;
+
+					var url = 'http://jsonplaceholder.typicode.com/users';
+					var vm = this;
+					axios.get(url).then(function(response) {
+						vm.users = response.data;
+						vm.loader.users = false;
+					});
+
 				}
 			}
 		}
@@ -41,21 +53,18 @@
 
 			mixins: [mixin],
 			
-			created() {
-				console.log('hello vue from vue');
-			},
-
 			data: {
-				title: "Vuejs do jeito ninja!"
+				title: "Vuejs do jeito ninja!",
+				users: [],
+				loader: {
+					users: false,
+				},
+				response: {
+					msg: "Erro ao conectar",
+					status: ""
+				}
 			},
 
-			methods: {
-				getUsers() {
-					// rotina de progração
-					// localizar usúarios
-					console.log('get users from vue');
-				}
-			}
 		});
 	</script>
 </body>
