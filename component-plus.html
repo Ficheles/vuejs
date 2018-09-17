@@ -63,9 +63,9 @@
 			template: "#list",
 			created() {
 				var vm = this;
-				this.$eventHub.$on('submit', function(title){
-					if (title){
-						vm.list.push({title: title});
+				this.$eventHub.$on('submit', function(title) {
+					if (title) {
+						vm.list.push({ title: title });
 					}	
 				});
 			},
