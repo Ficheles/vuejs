@@ -1,0 +1,2 @@
+#!/bin/sh
+start "" "/c/Users/Rafael.Fideles/Documents/USBWebserver v8.6.1/php/php.exe" -S localhost:8000 $*
